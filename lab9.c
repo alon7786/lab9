@@ -7,6 +7,8 @@
 void swap_rec( int *, unsigned int );
 char is_palindrome( int *, unsigned int );
 char is_sorted( int *, unsigned int );
+int max_sum_neighboors( int *, unsigned int );
+int mymax( int, int );
 
 void main()
 {
@@ -21,6 +23,7 @@ void main()
 		printf( "True.\n" );
 	else
 		printf( "False.\n" );
+	printf("4. max: %d\n", max_sum_neighboors( a, size ) );
 	system( "pause" );
 }
 
@@ -57,7 +60,22 @@ char is_sorted( int *list, unsigned int size )
 		if( *( list + size - 2 ) > *( list + size - 1 ) )
 			return FALSE;
 		else
-			 return is_sorted( list, size - 2 );
+			 return is_sorted( list, size - 1 );
 	}
 	return TRUE;
+}
+
+int max_sum_neighboors( int *list, unsigned int size )
+{
+	if( size > 2 )
+	{
+		return mymax( max_sum_neighboors( list, size - 1 ),
+			        *( list + size - 2 ) + *( list + size - 1 ) );
+	}
+	return *list + *( list + 1 );
+}
+
+int mymax( int x, int y )
+{
+	return x > y ? x : y;
 }
